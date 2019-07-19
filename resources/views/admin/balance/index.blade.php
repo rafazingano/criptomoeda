@@ -15,12 +15,13 @@
     <div class="box">
 
         <div class="box-header">
-                
+            @role('investidor')
             <a href="{{ route('balance.deposit') }}" class="btn btn-success">
                 <i class="fa fa-cart-plus" aria-hidden="true">
                     Recarregar
                 </i>
             </a>
+            @endrole
 
             @if ($amout > 0)
                 <a href="{{ route('balance.withdraw') }}" class="btn btn-danger">
@@ -55,7 +56,7 @@
                 <a href="#" class="small-box-footer">Histórico<i class="fa fa-arrow-circle-right"></i></a>
 
             </div> <!-- small-box bg-green -->
-            
+
         </div> <!-- box-body -->
 
     </div> <!-- box -->

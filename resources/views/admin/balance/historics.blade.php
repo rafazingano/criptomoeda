@@ -43,10 +43,13 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Pessoa</th>
                         <th>Valor</th>
                         <th>Tipo</th>
                         <th>Data</th>
                         <th>Destinatário</th>
+                        <th>Status</th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -54,6 +57,7 @@
                     @forelse ($historics as $historic)
                         <tr>
                             <td>{{ $historic->id }}</td>
+                            <td>{{ $historic->user->name }}</td>
                             <td>R${{ number_format($historic->amount, 2, ',', '.') }}</td>
                             <td>{{ $historic->type($historic->type) }}</td>
                             <td>{{ $historic->date }}</td>
@@ -63,6 +67,14 @@
                                 @else
                                     -
                                 @endif
+                            </td>
+<td>{{ $historic->status }}</td>
+                            <td>
+                                @role('financeiro')
+                                    @if($historic->status == 'Aguardando confirmação')
+                                        <a href="{{ route('historic.darok', $historic->id) }}">Dar Ok</a>
+                                    @endif
+                                @endrole
                             </td>
                         </tr>
                         @empty

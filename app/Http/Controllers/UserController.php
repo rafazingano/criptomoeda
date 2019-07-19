@@ -103,7 +103,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $roles = Role::pluck('display_name','id');
+        $nivel = $user->roles()->first()->nivel;
+        $roles = Role::where('nivel', '<=', $nivel)->pluck('display_name','id');
         $userRole = $user->roles->pluck('id','id')->toArray();
         $cities = City::all()->pluck('name', 'id');
 
@@ -141,7 +142,7 @@ class UserController extends Controller
 
         $user->update($input);
         DB::table('role_user')->where('user_id',$id)->delete();
-        DB::table('cities')->where('user_id',$id)->delete();
+        //DB::table('cities')->where('user_id',$id)->delete();
 
         $consultor = false;
         foreach ($request->input('roles') as $key => $value) {
@@ -151,10 +152,14 @@ class UserController extends Controller
             }
         }
 
-        if($input['cities']){
+        if(isset($input['cities'])){
             $user->cities()->sync($input['cities']);
         }
-
+/*
+        if(isset($input['roles'])){
+            $user->roles(true)->sync($input['roles']);
+        }
+*/
 
         return redirect()->route('users.index')
                         ->with('success','User updated successfully');

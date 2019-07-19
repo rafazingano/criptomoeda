@@ -9,7 +9,7 @@ use Carbon\Carbon;
 class Historic extends Model
 {
     protected $fillable = [
-        'type', 'amount', 'total_before', 'total_after', 'user_id_transaction', 'date'
+        'status', 'type', 'amount', 'total_before', 'total_after', 'user_id_transaction', 'date'
     ];
 
     public function type($type = null)

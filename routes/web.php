@@ -22,6 +22,7 @@ Route::middleware(['auth'])
 
         Route::any('historic-search', 'BalanceController@searchHistoric')->name('historic.search');
         Route::get('historic', 'BalanceController@historic')->name('admin.historic');
+        Route::get('historic/ok/{id}', 'BalanceController@darok')->name('historic.darok');
 
         Route::post('transfer', 'BalanceController@transferStore')->name('transfer.store');
         Route::post('confirm-transfer', 'BalanceController@confirmTransfer')->name('confirm.transfer');

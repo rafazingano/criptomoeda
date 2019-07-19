@@ -46,7 +46,7 @@ class BalanceController extends Controller
         return view('admin.balance.withdraw');
     }
 
-    
+
 
     public function withdrawStore(MoneyValidationFormRequest $request)
     {
@@ -83,7 +83,7 @@ class BalanceController extends Controller
 
         $balance = auth()->user()->balance; # RECUPERA O SALDO DO USUÁRIO
 
-        
+
         return view('admin.balance.transfer-confirm',compact('sender', 'balance'));
     }
 
@@ -109,10 +109,18 @@ class BalanceController extends Controller
 
     public function historic(Historic $historic)
     {
-        $historics = auth()->user()
-                            ->historics()
-                            ->with(['userSender'])
-                            ->paginate($this->totalPage);
+        if(auth()->user()->roles->whereIn('name', ['diretoria', 'financeiro'])->count() > 0){
+            $historics = Historic::with(['userSender'])
+            ->paginate($this->totalPage);
+        }else{
+            $historics = auth()->user()
+                ->historics()
+                ->with(['userSender'])
+                ->paginate($this->totalPage);
+        }
+
+        //dd($historics);
+
 
 
         $types = $historic->type();
@@ -131,4 +139,22 @@ class BalanceController extends Controller
         return view('admin.balance.historics', compact('historics', 'types', 'dataForm'));
 
     }
+
+
+
+    public function darok($id)
+    {
+
+        $fff = Historic::find($id);
+
+        $fff->update(['status' => 'Confirmado']);
+
+            return redirect()
+                    ->route('admin.balance')
+                    ->with('success', 'Confirmado pagamento');
+
+    }
+
+
+
 }
