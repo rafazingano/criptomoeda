@@ -103,7 +103,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $nivel = isset($user->roles)? $user->roles()->first()->nivel : 1;
+        $nivel = ($user->roles()->count() > 0)? $user->roles()->first()->nivel : 1;
         $roles = Role::where('nivel', '<=', $nivel)->pluck('display_name','id');
         $userRole = $user->roles->pluck('id','id')->toArray();
         $cities = City::all()->pluck('name', 'id');
