@@ -12,51 +12,53 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        user::create([
+        $user = User::create([
             'name'      => 'Rafael',
             'email'     => 'rafazingano@gmail.com',
             'password'  => bcrypt('123456'),
         ]);
 
-        user::create([
+        $user->roles()->sync(1,2);
+
+        User::create([
             'name'      => 'diretoria',
             'email'     => 'diretoria@gmail.com',
             'password'  => bcrypt('123456'),
         ]);
 
 
-        user::create([
+        User::create([
             'name'      => 'financeiro',
             'email'     => 'financeiro@gmail.com',
             'password'  => bcrypt('123456'),
         ]);
 
-        user::create([
+        User::create([
             'name'      => 'secretaria-suporte',
             'email'     => 'secretaria-suporte@gmail.com',
             'password'  => bcrypt('123456'),
         ]);
 
-        user::create([
+        User::create([
             'name'      => 'franqueado',
             'email'     => 'franqueado@gmail.com',
             'password'  => bcrypt('123456'),
         ]);
 
-        user::create([
+        User::create([
             'name'      => 'franqueador',
             'email'     => 'franqueador@gmail.com',
             'password'  => bcrypt('123456'),
         ]);
 
 
-        user::create([
+        User::create([
             'name'      => 'consultor',
             'email'     => 'consultor@gmail.com',
             'password'  => bcrypt('123456'),
         ]);
 
-        user::create([
+        User::create([
             'name'      => 'investidor',
             'email'     => 'investidor@gmail.com',
             'password'  => bcrypt('123456'),

@@ -90,6 +90,72 @@
                 {!! $historics->links() !!}
             @endif
 
+
+
+
+
+<hr>
+
+
+
+
+
+
+
+
+
+            <table class="table table-bordered table-hover">
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Pessoa</th>
+                        <th>Valor</th>
+                        <th>Tipo</th>
+                        <th>Data</th>
+                        <th>Destinatário</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @forelse ($pessoas as $historic)
+                        <tr>
+                            <td>{{ $historic->id }}</td>
+                            <td>{{ $historic->user->name }}</td>
+                            <td>R${{ number_format($historic->amount, 2, ',', '.') }}</td>
+                            <td>{{ $historic->type($historic->type) }}</td>
+                            <td>{{ $historic->date }}</td>
+                            <td>
+                                @if ($historic->user_id_transaction)
+                                    {{ $historic->userSender->name }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+<td>{{ $historic->status }}</td>
+                            <td>
+                                @role('financeiro')
+                                    @if($historic->status == 'Aguardando confirmação')
+                                        <a href="{{ route('historic.darok', $historic->id) }}">Dar Ok</a>
+                                    @endif
+                                @endrole
+                            </td>
+                        </tr>
+                        @empty
+                    @endforelse
+
+                </tbody>
+
+            </table> <! table -->
+
+            @if (isset($dataForm))
+                {!! $pessoas->appends($dataForm)->links() !!}
+            @else
+                {!! $pessoas->links() !!}
+            @endif
+
         </div> <!-- box-body -->
 
     </div> <!-- box -->

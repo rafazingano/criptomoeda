@@ -109,6 +109,9 @@ class BalanceController extends Controller
 
     public function historic(Historic $historic)
     {
+        $ids[] = auth()->user()->id;
+        $ids[] = auth()->user()->user_id;
+        $ids[] = User::where('user_id', auth()->user()->user_id)->first()->user_id;
         if(auth()->user()->roles->whereIn('name', ['diretoria', 'financeiro'])->count() > 0){
             $historics = Historic::with(['userSender'])
             ->paginate($this->totalPage);
@@ -117,6 +120,11 @@ class BalanceController extends Controller
                 ->historics()
                 ->with(['userSender'])
                 ->paginate($this->totalPage);
+
+            $pessoas = Historic::with(['userSender'])
+            //->where('user_id', auth()->user()->id)
+            ->whereIn('id', $ids)
+            ->paginate($this->totalPage);
         }
 
         //dd($historics);
@@ -125,7 +133,7 @@ class BalanceController extends Controller
 
         $types = $historic->type();
 
-        return view('admin.balance.historics', compact('historics', 'types'));
+        return view('admin.balance.historics', compact('historics', 'types', 'pessoas'));
     }
 
     public function searchHistoric(Request $request, Historic $historic)

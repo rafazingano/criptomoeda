@@ -104,7 +104,8 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $nivel = (auth()->user()->roles()->count() > 0)? auth()->user()->roles()->first()->nivel : 1;
-        $roles = Role::where('nivel', '<=', $nivel)->pluck('display_name','id');
+        //$roles = Role::where('nivel', '<=', $nivel)->pluck('display_name','id');
+        $roles = Role::all()->pluck('display_name','id');
         $userRole = $user->roles->pluck('id','id')->toArray();
         $cities = City::all()->pluck('name', 'id');
 
