@@ -115,18 +115,20 @@ class BalanceController extends Controller
         if(auth()->user()->roles->whereIn('name', ['diretoria', 'financeiro'])->count() > 0){
             $historics = Historic::with(['userSender'])
             ->paginate($this->totalPage);
+
         }else{
             $historics = auth()->user()
                 ->historics()
                 ->with(['userSender'])
                 ->paginate($this->totalPage);
 
-            $pessoas = Historic::with(['userSender'])
-            //->where('user_id', auth()->user()->id)
-            ->whereIn('id', $ids)
-            ->paginate($this->totalPage);
+
         }
 
+        $pessoas = Historic::with(['userSender'])
+        //->where('user_id', auth()->user()->id)
+        ->whereIn('id', $ids)
+        ->paginate($this->totalPage);
         //dd($historics);
 
 
