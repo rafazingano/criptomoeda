@@ -18,7 +18,10 @@ class BalanceController extends Controller
         $balance = auth()->user()->balance; # RECEBE O SALDO
         $amout = $balance ? $balance->amount : 0; # VERIFICA O SALDO
 
-        return view('admin.balance.index', compact('amout'));
+
+        $data = User::where('user_id', auth()->user()->id)->get();
+
+        return view('admin.balance.index', compact('amout', 'data'));
     }
 
     public function deposit()

@@ -21,7 +21,7 @@ class Balance extends Model
     {
         parent::boot();
 
-        static::addGlobalScope(new UserScope);
+        //static::addGlobalScope(new UserScope);
     }
 
     # DEPÓSITO
