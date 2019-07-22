@@ -72,7 +72,7 @@ class UserController extends Controller
             }
         }
 
-        if($input['cities']){
+        if(isset($input['cities'])){
             $user->cities()->sync($input['cities']);
         }
 
