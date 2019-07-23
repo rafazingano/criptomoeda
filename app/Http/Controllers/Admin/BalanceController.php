@@ -32,6 +32,9 @@ class BalanceController extends Controller
     public function depositStore(MoneyValidationFormRequest $request)
     {
         $balance = auth()->user()->balance()->firstOrCreate([]);
+        $request->value = str_replace(',', '.', str_replace('.', '', $request->value));
+        //dd($request->value);
+        //number_format($number, 2, '.', '')
         $response = $balance->deposit($request->value);
 
         if ($response['success'])
@@ -112,10 +115,12 @@ class BalanceController extends Controller
 
     public function historic(Historic $historic)
     {
+
         $ids[] = auth()->user()->id;
         $ids[] = auth()->user()->user_id;
         $ids[] = User::where('user_id', auth()->user()->user_id)->first()->user_id;
-        if(auth()->user()->roles->whereIn('name', ['diretoria', 'financeiro'])->count() > 0){
+        //dd(auth()->user()->roles->whereIn('name', ['diretoria', 'financeiro'])->count());
+        if(auth()->user()->roles->whereIn('name', ['admin', 'diretoria', 'financeiro'])->count() > 0){
             $historics = Historic::with(['userSender'])
             ->paginate($this->totalPage);
 
@@ -160,7 +165,17 @@ class BalanceController extends Controller
 
         $fff = Historic::find($id);
 
+        //$bbb = Balance::where('user_id', $fff->user_if)->first();
+
         $fff->update(['status' => 'Confirmado']);
+
+
+        $balance = User::find($fff->user_id)->balance()->firstOrCreate([]);
+        $value = $fff->amount;
+        $response = $balance->deposit($value, true);
+
+
+        //$bbb->update(['status' => 'Confirmado']);
 
             return redirect()
                     ->route('admin.balance')

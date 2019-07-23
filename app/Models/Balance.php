@@ -25,23 +25,27 @@ class Balance extends Model
     }
 
     # DEPÓSITO
-    public function deposit(float $value) : Array
+    public function deposit(float $value, $confirmado = false) : Array
     {
         DB::beginTransaction();
-
+        
         $totalBefore = $this->amount ? $this->amount : 0;
         $this->amount += number_format($value, 2, '.', '');
-        $deposit = $this->save();
+        if($confirmado){
+            $deposit = $this->save();
+        }else{
+            $historic = auth()->user()->historics()->create([
+                'type'          => 'I',
+                'amount'        => $value,
+                'total_before'  => $totalBefore,
+                'total_after'   => $this->amount,
+                'date'          => date('Ymd'),
+            ]);
+        }
 
-        $historic = auth()->user()->historics()->create([
-            'type'          => 'I',
-            'amount'        => $value,
-            'total_before'  => $totalBefore,
-            'total_after'   => $this->amount,
-            'date'          => date('Ymd'),
-        ]);
+        
 
-        if ($deposit && $historic) {
+        if ((isset($historic) && $historic) || (isset($deposit) && $deposit)) {
 
             DB::commit();
 

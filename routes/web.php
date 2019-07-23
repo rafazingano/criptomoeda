@@ -70,10 +70,8 @@ Route::get('meu-perfil', 'Admin\UserController@profile')
     ->name('profile')
     ->middleware('auth');
 
-//$this->get('/', 'Site\SiteController@index')->name('home'); # HOME
-
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('home');
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');
+

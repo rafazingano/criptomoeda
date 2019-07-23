@@ -23,6 +23,7 @@ class CreateBalancesTable extends Migration
             ->onDelete('cascade');
 
             $table->double('amount', 10, 2)->default(0);
+            //$table->string('status')->default('Aguardando confirmação');
         });
     }
 

@@ -10,6 +10,7 @@ use App\City;
 use DB;
 use Hash;
 use Auth;
+use Illuminate\Support\Str;
 
 
 class UserController extends Controller
@@ -23,7 +24,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth()->user()->roles->whereIn('name', ['admin', 'diretoria', 'financeiro'])->count() > 0){
+            $data = User::paginate(5);
+        }else{
         $data = User::orderBy('id','DESC')->where('user_id', auth()->user()->id)->paginate(5);
+        }
         return view('users.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -36,8 +41,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::pluck('display_name','id');
-        $cities = City::all()->pluck('name', 'id');
+        $roles = Role::where('nivel', '<=', auth()->user()->roles()->first()->nivel)->get()->pluck('display_name','id');
+        if(auth()->user()->roles()->whereIn('name', ['admin', 'diretoria'])->count() <= 0){
+            $cities = auth()->user()->cities->pluck('name', 'id');
+        }else{
+            $cities = City::all()->pluck('name', 'id');
+        }
         return view('users.create',compact('roles', 'cities'));
     }
 
@@ -105,9 +114,16 @@ class UserController extends Controller
         $user = User::find($id);
         $nivel = (auth()->user()->roles()->count() > 0)? auth()->user()->roles()->first()->nivel : 1;
         //$roles = Role::where('nivel', '<=', $nivel)->pluck('display_name','id');
-        $roles = Role::all()->pluck('display_name','id');
+        //$roles = Role::all()->pluck('display_name','id');
+        //dd(auth()->user()->roles()->first());
+        $roles = Role::where('nivel', '<=', $nivel)->get()->pluck('display_name','id');
+        
         $userRole = $user->roles->pluck('id','id')->toArray();
-        $cities = City::all()->pluck('name', 'id');
+        if(auth()->user()->roles()->whereIn('name', ['admin', 'diretoria'])->count() <= 0){
+            $cities = auth()->user()->cities->pluck('name', 'id');
+        }else{
+            $cities = City::all()->pluck('name', 'id');
+        }
 
 
         return view('users.edit',compact('user','roles','userRole', 'cities'));

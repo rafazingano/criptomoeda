@@ -122,14 +122,8 @@ return [
                     'text'    => 'Usuários',
                     'url'     => 'admin/users',
                     'icon'    => 'users'
-                ],
-                /*
-                [
-                    'text'    => 'Perfis',
-                    'url'     => 'admin/roles',
-                    'icon'    => 'users'
                 ]
-                */
+                
             ]
         ],
         [
