@@ -120,6 +120,7 @@
                 </thead>
 
                 <tbody>
+                @if(isset($pessoas))
                     @forelse ($pessoas as $historic)
                         <tr>
                             <td>{{ $historic->id }}</td>
@@ -134,7 +135,7 @@
                                     -
                                 @endif
                             </td>
-<td>{{ $historic->status }}</td>
+                            <td>{{ $historic->status }}</td>
                             <td>
                                 @role('financeiro')
                                     @if($historic->status == 'Aguardando confirmação')
@@ -145,6 +146,7 @@
                         </tr>
                         @empty
                     @endforelse
+                @endif
 
                 </tbody>
 

@@ -72,6 +72,10 @@ Route::get('meu-perfil', 'Admin\UserController@profile')
 
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('home');
 
+Route::get('dropdownlist','DropdownController@index');
+Route::get('get-state-list','DropdownController@getStateList');
+Route::get('get-city-list','DropdownController@getCityList');
+
 Auth::routes();
 
 

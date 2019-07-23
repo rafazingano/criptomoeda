@@ -137,7 +137,7 @@ class BalanceController extends Controller
         //->where('user_id', auth()->user()->id)
         ->whereIn('id', $ids)
         ->paginate($this->totalPage);
-        //dd($historics);
+        //dd($pessoas);
 
 
 
@@ -148,13 +148,23 @@ class BalanceController extends Controller
 
     public function searchHistoric(Request $request, Historic $historic)
     {
+
+        $ids[] = auth()->user()->id;
+        $ids[] = auth()->user()->user_id;
+        $ids[] = User::where('user_id', auth()->user()->user_id)->first()->user_id;
+        
         $dataForm = $request->except('_token');
 
         $historics = $historic->search($dataForm, $this->totalPage);
 
         $types = $historic->type();
 
-        return view('admin.balance.historics', compact('historics', 'types', 'dataForm'));
+        $pessoas = Historic::with(['userSender'])
+        //->where('user_id', auth()->user()->id)
+        ->whereIn('id', $ids)
+        ->paginate($this->totalPage);
+
+        return view('admin.balance.historics', compact('historics', 'types', 'dataForm', 'pessoas'));
 
     }
 

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Role;
+use App\Country;
+use App\State;
 use App\City;
 use DB;
 use Hash;
@@ -41,13 +43,18 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::where('nivel', '<=', auth()->user()->roles()->first()->nivel)->get()->pluck('display_name','id');
+        $nivel = (auth()->user()->roles()->count() > 0)? auth()->user()->roles()->first()->nivel : 1;
+        $roles = Role::where('nivel', '<=', $nivel)->get()->pluck('display_name','id');
+
+        $countries = Country::get()->pluck('name', 'id');
+        /*
         if(auth()->user()->roles()->whereIn('name', ['admin', 'diretoria'])->count() <= 0){
             $cities = auth()->user()->cities->pluck('name', 'id');
         }else{
             $cities = City::all()->pluck('name', 'id');
         }
-        return view('users.create',compact('roles', 'cities'));
+        */
+        return view('users.create',compact('roles', 'countries'));
     }
 
 
@@ -119,14 +126,16 @@ class UserController extends Controller
         $roles = Role::where('nivel', '<=', $nivel)->get()->pluck('display_name','id');
         
         $userRole = $user->roles->pluck('id','id')->toArray();
-        if(auth()->user()->roles()->whereIn('name', ['admin', 'diretoria'])->count() <= 0){
-            $cities = auth()->user()->cities->pluck('name', 'id');
-        }else{
-            $cities = City::all()->pluck('name', 'id');
-        }
+        //if(auth()->user()->roles()->whereIn('name', ['admin', 'diretoria'])->count() <= 0){
+        //    $cities = auth()->user()->cities->pluck('name', 'id');
+        //}else{
+        //    $cities = City::all()->pluck('name', 'id');
+        //}
+
+        $countries = Country::get()->pluck('name', 'id');
 
 
-        return view('users.edit',compact('user','roles','userRole', 'cities'));
+        return view('users.edit',compact('user','roles','userRole', 'countries'));
     }
 
 
