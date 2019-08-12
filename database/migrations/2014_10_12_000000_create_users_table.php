@@ -19,8 +19,24 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique(); # E-MAIL
             $table->timestamp('email_verified_at')->nullable(); # E-MAIL VERIFIED AT
             $table->string('password'); # PASSWORD
-
             $table->string('image', 100)->nullable();
+
+            $table->string('cpf')->nullable();
+            $table->string('rg')->nullable();
+            $table->string('data')->nullable();
+            $table->string('sexo')->nullable();
+            $table->string('nacionalidade')->nullable();
+            $table->string('naturalidade')->nullable();
+            $table->string('endereco')->nullable();
+            $table->string('fone')->nullable();
+            $table->string('matricula')->nullable();
+            $table->string('estadocivil')->nullable();
+            $table->string('conjuge')->nullable();
+            $table->string('carteiradigital')->nullable();
+            $table->string('banco')->nullable();
+            $table->string('agencia')->nullable();
+            $table->string('tipoconta')->nullable(); //(poupança física ou jurídica - conta corrente física ou jurídica)
+            $table->string('titularconta')->nullable();
 
             $table->unsignedInteger('user_id')->nullable();
             $table->foreign('user_id')
