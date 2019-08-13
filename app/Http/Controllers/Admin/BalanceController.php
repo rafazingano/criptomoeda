@@ -8,6 +8,7 @@ use App\Models\Balance;
 use App\Models\Historic;
 use App\Http\Requests\MoneyValidationFormRequest;
 use App\User;
+use Carbon\Carbon;
 
 class BalanceController extends Controller
 {
@@ -15,13 +16,13 @@ class BalanceController extends Controller
 
     public function index()
     {
+        $mutable = Carbon::now();
         $balance = auth()->user()->balance; # RECEBE O SALDO
         $amout = $balance ? $balance->amount : 0; # VERIFICA O SALDO
 
-
         $data = User::where('user_id', auth()->user()->id)->get();
 
-        return view('admin.balance.index', compact('amout', 'data'));
+        return view('admin.balance.index', compact('amout', 'data', 'mutable'));
     }
 
     public function deposit()
@@ -152,7 +153,7 @@ class BalanceController extends Controller
         $ids[] = auth()->user()->id;
         $ids[] = auth()->user()->user_id;
         $ids[] = User::where('user_id', auth()->user()->user_id)->first()->user_id;
-        
+
         $dataForm = $request->except('_token');
 
         $historics = $historic->search($dataForm, $this->totalPage);

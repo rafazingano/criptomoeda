@@ -23,7 +23,7 @@
             </a>
             @endrole
 
-            @if ($amout > 0)
+            @if ($amout > 0 && false)
                 <a href="{{ route('balance.withdraw') }}" class="btn btn-danger">
                     <i class="fa fa-cart-arrow-down" aria-hidden="true">
                         Sacar
@@ -37,96 +37,53 @@
                 </a>
             @endif
 
-        </div> <!-- box-header -->
+        </div>
 
         <div class="box-body">
-
             @include('admin.includes.alerts')
-<h1>Meu saldo</h1>
+            <h1>Meu saldo</h1>
             <div class="small-box bg-green">
-
                 <div class="inner">
                     <h3>R${{ number_format($amout, 2, ',', '.') }}</h3>
                 </div>
-
                 <div class="icon">
                     <i class="ion ion-cash"></i>
                 </div>
-
                 <a href="#" class="small-box-footer">Histórico<i class="fa fa-arrow-circle-right"></i></a>
+            </div>
 
-            </div> <!-- small-box bg-green -->
-
-
-
-
-<hr>
-<h1>Listagem dos meus usuários</h1>
-
-
-
-
-
+            <hr>
+            <h1>Previsão dos ganhos</h1>
+            @php
+            $total = ($amout * 17) / 100;
+            @endphp
             <table class="table table-bordered">
                 <tr>
-                    <th></th>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Perfil</th>
+                    <th>Dia</th>
                     <th>Valor</th>
-                    <th>% a receber</th>
                 </tr>
+                @for($i=0; $i < 30; $i++)
                 @php
-                    $total = 0;
+                    $total = (($total * 0.5) / 100) + $total
                 @endphp
-            @foreach ($data as $key => $user)
-            <tr>
-                <td>{{ $user->id }}</td>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
-                <td>
-                    @if(!empty($user->roles))
-                        @foreach($user->roles as $v)
-                            <label class="label label-success">{{ $v->display_name }}</label>
-                        @endforeach
-                    @endif
-                </td>
-                <td>
-                    R${{ number_format($user->balance? $user->balance->amount : 0, 2, ',', '.') }}
-                </td>
-                <td>
-                    @php
-                    if($user->balance){
-                       $total = ($user->balance->amount * 0.02) + $total;
-                    }
-                        @endphp
-                    R${{ number_format(($user->balance? $user->balance->amount * 0.02 : 0), 2, ',', '.') }}
-                </td>
-            </tr>
-            @endforeach
+                <tr>
+                    <td>{{ $mutable->add(1, 'day') }}</td>
+                    <td>{{ number_format($total, 2, ',', '.') }}</td>
+                </tr>
+                @endfor
             </table>
 
-
-<h1>A receber</h1>
+            <h1>A receber</h1>
 
             <div class="small-box bg-green">
-
-                    <div class="inner">
-                        <h3>R${{ number_format($total, 2, ',', '.') }}</h3>
-                    </div>
-
-                    <div class="icon">
-                        <i class="ion ion-cash"></i>
-                    </div>
-
-
+                <div class="inner">
+                    <h3>R${{ number_format($total, 2, ',', '.') }}</h3>
                 </div>
+                <div class="icon">
+                    <i class="ion ion-cash"></i>
+                </div>
+            </div>
 
-
-
-
-
-        </div> <!-- box-body -->
-
-    </div> <!-- box -->
+        </div>
+    </div>
 @stop
