@@ -7,7 +7,15 @@
 	            <h2>Usuários</h2>
 	        </div>
 	        <div class="pull-right">
+                @role('admin')
 	            <a class="btn btn-success" href="{{ route('users.create') }}"> Criar novo usuário</a>
+                @endrole
+                @role('diretoria')
+                <a class="btn btn-success" href="{{ route('users.create') }}"> Criar novo usuário</a>
+                @endrole
+                @role('financeiro')
+                <a class="btn btn-success" href="{{ route('users.create') }}"> Criar novo usuário</a>
+                @endrole
 	        </div>
 	    </div>
 	</div>

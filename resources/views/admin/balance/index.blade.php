@@ -53,10 +53,31 @@
             </div>
 
             <hr>
-            <h1>Previsão dos ganhos</h1>
+
             @php
-            $total = ($amout * 17) / 100;
+                $percent = 1;
+                $mostratabelaganhos = false;
+                if(auth()->user()->hasRole('investidor')){
+                    $percent = 17;
+                    $mostratabelaganhos = true;
+                }
+                if(auth()->user()->hasRole('consultor')){
+                    $percent = 4;
+                    $mostratabelaganhos = true;
+                }
+                if(auth()->user()->hasRole('franqueado')){
+                    $percent = 3;
+                    $mostratabelaganhos = true;
+                }
+                 if(auth()->user()->hasRole('franqueador')){
+                    $percent = 1;
+                    $mostratabelaganhos = true;
+                }
+                $total = ($amout * $percent) / 100;
             @endphp
+
+            @if($mostratabelaganhos)
+                <h1>Previsão dos ganhos</h1>
             <table class="table table-bordered">
                 <tr>
                     <th>Dia</th>
@@ -83,7 +104,7 @@
                     <i class="ion ion-cash"></i>
                 </div>
             </div>
-
+        @endif
         </div>
     </div>
 @stop

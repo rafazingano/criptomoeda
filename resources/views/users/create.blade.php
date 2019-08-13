@@ -69,7 +69,7 @@
                 <select name="state" id="state" class="form-control" style="width:350px">
                 </select>
             </div>
-            
+
             <div class="form-group">
                 <label for="title">Cidade</label>
                 <select name="cities[]" id="city" class="form-control" style="width:350px" multiple>
@@ -77,7 +77,76 @@
             </div>
         </div>
 
-    
+
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>CPF:</strong>
+                {!! Form::text('cpf', null, array('placeholder' => 'cpf','class' => 'form-control')) !!}
+            </div>
+            <div class="form-group">
+                <strong>RG:</strong>
+                {!! Form::text('rg', null, array('placeholder' => 'rg','class' => 'form-control')) !!}
+            </div>
+            <div class="form-group">
+                <strong>Data:</strong>
+                {!! Form::text('data', null, array('placeholder' => 'data','class' => 'form-control')) !!}
+            </div>
+            <div class="form-group">
+                <strong>Sexo:</strong>
+                {!! Form::text('sexo', null, array('placeholder' => 'sexo','class' => 'form-control')) !!}
+            </div>
+            <div class="form-group">
+                <strong>Nacionalidade:</strong>
+                {!! Form::text('nacionalidade', null, array('placeholder' => 'nacionalidade','class' => 'form-control')) !!}
+            </div>
+            <div class="form-group">
+                <strong>Naturalidade:</strong>
+                {!! Form::text('naturalidade', null, array('placeholder' => 'naturalidade','class' => 'form-control')) !!}
+            </div>
+            <div class="form-group">
+                <strong>Endereco:</strong>
+                {!! Form::text('endereco', null, array('placeholder' => 'endereco','class' => 'form-control')) !!}
+            </div>
+            <div class="form-group">
+                <strong>Fone:</strong>
+                {!! Form::text('fone', null, array('placeholder' => 'fone','class' => 'form-control')) !!}
+            </div>
+            <div class="form-group">
+                <strong>Matricula:</strong>
+                {!! Form::text('matricula', null, array('placeholder' => 'matricula','class' => 'form-control')) !!}
+            </div>
+            <div class="form-group">
+                <strong>Estado civil:</strong>
+                {!! Form::text('estadocivil', null, array('placeholder' => 'estadocivil','class' => 'form-control')) !!}
+            </div>
+            <div class="form-group">
+                <strong>Conjuge:</strong>
+                {!! Form::text('conjuge', null, array('placeholder' => 'conjuge','class' => 'form-control')) !!}
+            </div>
+            <div class="form-group">
+                <strong>Carteira digital:</strong>
+                {!! Form::text('carteiradigital', null, array('placeholder' => 'carteiradigital','class' => 'form-control')) !!}
+            </div>
+            <div class="form-group">
+                <strong>Banco:</strong>
+                {!! Form::text('banco', null, array('placeholder' => 'banco','class' => 'form-control')) !!}
+            </div>
+            <div class="form-group">
+                <strong>Agencia:</strong>
+                {!! Form::text('agencia', null, array('placeholder' => 'agencia','class' => 'form-control')) !!}
+            </div>
+            <div class="form-group">
+                <strong>Tipo conta:</strong>
+                {!! Form::text('tipoconta', null, array('placeholder' => 'tipoconta','class' => 'form-control')) !!}
+            </div>
+            <div class="form-group">
+                <strong>Titular conta:</strong>
+                {!! Form::text('titularconta', null, array('placeholder' => 'titularconta','class' => 'form-control')) !!}
+            </div>
+        </div>
+
+
 
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
 				<button type="submit" class="btn btn-primary">Enviar</button>
@@ -91,19 +160,19 @@
 @section('adminlte_js')
 <script type="text/javascript">
     $('#country').change(function(){
-    var countryID = $(this).val();    
+    var countryID = $(this).val();
     if(countryID){
         $.ajax({
            type:"GET",
            url:"{{url('get-state-list')}}?country_id="+countryID,
-           success:function(res){               
+           success:function(res){
             if(res){
                 $("#state").empty();
                 $("#state").append('<option>Selecione um estado</option>');
                 $.each(res,function(key,value){
                     $("#state").append('<option value="'+key+'">'+value+'</option>');
                 });
-           
+
             }else{
                $("#state").empty();
             }
@@ -112,21 +181,21 @@
     }else{
         $("#state").empty();
         $("#city").empty();
-    }      
+    }
    });
     $('#state').on('change',function(){
-    var stateID = $(this).val();    
+    var stateID = $(this).val();
     if(stateID){
         $.ajax({
            type:"GET",
            url:"{{url('get-city-list')}}?state_id="+stateID+"&all="+ {{ auth()->user()->roles()->whereIn('name', ['admin', 'diretoria'])->count() }},
-           success:function(res){               
+           success:function(res){
             if(res){
                 $("#city").empty();
                 $.each(res,function(key,value){
                     $("#city").append('<option value="'+key+'">'+value+'</option>');
                 });
-           
+
             }else{
                $("#city").empty();
             }
@@ -135,7 +204,7 @@
     }else{
         $("#city").empty();
     }
-        
+
    });
 </script>
 

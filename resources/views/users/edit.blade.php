@@ -26,9 +26,9 @@
 		<div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Nome:</strong>
-                {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                    {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                </div>
             </div>
-        </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Email:</strong>
@@ -48,10 +48,70 @@
             </div>
         </div>
 
-
-
-
-
+        <div class="form-group">
+            <strong>CPF:</strong>
+            {!! Form::text('cpf', null, array('placeholder' => 'cpf','class' => 'form-control')) !!}
+        </div>
+        <div class="form-group">
+            <strong>RG:</strong>
+            {!! Form::text('rg', null, array('placeholder' => 'rg','class' => 'form-control')) !!}
+        </div>
+        <div class="form-group">
+            <strong>Data:</strong>
+            {!! Form::text('data', null, array('placeholder' => 'data','class' => 'form-control')) !!}
+        </div>
+        <div class="form-group">
+            <strong>Sexo:</strong>
+            {!! Form::text('sexo', null, array('placeholder' => 'sexo','class' => 'form-control')) !!}
+        </div>
+        <div class="form-group">
+            <strong>Nacionalidade:</strong>
+            {!! Form::text('nacionalidade', null, array('placeholder' => 'nacionalidade','class' => 'form-control')) !!}
+        </div>
+        <div class="form-group">
+            <strong>Naturalidade:</strong>
+            {!! Form::text('naturalidade', null, array('placeholder' => 'naturalidade','class' => 'form-control')) !!}
+        </div>
+        <div class="form-group">
+            <strong>Endereco:</strong>
+            {!! Form::text('endereco', null, array('placeholder' => 'endereco','class' => 'form-control')) !!}
+        </div>
+        <div class="form-group">
+            <strong>Fone:</strong>
+            {!! Form::text('fone', null, array('placeholder' => 'fone','class' => 'form-control')) !!}
+        </div>
+        <div class="form-group">
+            <strong>Matricula:</strong>
+            {!! Form::text('matricula', null, array('placeholder' => 'matricula','class' => 'form-control')) !!}
+        </div>
+        <div class="form-group">
+            <strong>Estado civil:</strong>
+            {!! Form::text('estadocivil', null, array('placeholder' => 'estadocivil','class' => 'form-control')) !!}
+        </div>
+        <div class="form-group">
+            <strong>Conjuge:</strong>
+            {!! Form::text('conjuge', null, array('placeholder' => 'conjuge','class' => 'form-control')) !!}
+        </div>
+        <div class="form-group">
+            <strong>Carteira digital:</strong>
+            {!! Form::text('carteiradigital', null, array('placeholder' => 'carteiradigital','class' => 'form-control')) !!}
+        </div>
+        <div class="form-group">
+            <strong>Banco:</strong>
+            {!! Form::text('banco', null, array('placeholder' => 'banco','class' => 'form-control')) !!}
+        </div>
+        <div class="form-group">
+            <strong>Agencia:</strong>
+            {!! Form::text('agencia', null, array('placeholder' => 'agencia','class' => 'form-control')) !!}
+        </div>
+        <div class="form-group">
+            <strong>Tipo conta:</strong>
+            {!! Form::text('tipoconta', null, array('placeholder' => 'tipoconta','class' => 'form-control')) !!}
+        </div>
+        <div class="form-group">
+            <strong>Titular conta:</strong>
+            {!! Form::text('titularconta', null, array('placeholder' => 'titularconta','class' => 'form-control')) !!}
+        </div>
 
         <!--div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
