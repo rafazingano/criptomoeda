@@ -68,8 +68,13 @@
                                     -
                                 @endif
                             </td>
-<td>{{ $historic->status }}</td>
+				<td>{{ $historic->status }}</td>
                             <td>
+				@role('financeiro')
+                                    @if($historic->status == 'Aguardando confirmação')
+                                        <a href="{{ route('historic.darok', $historic->id) }}">Dar Ok</a>
+                                    @endif
+                                @endrole
                                 @role('admin')
                                     @if($historic->status == 'Aguardando confirmação')
                                         <a href="{{ route('historic.darok', $historic->id) }}">Dar Ok</a>
@@ -80,11 +85,7 @@
                                         <a href="{{ route('historic.darok', $historic->id) }}">Dar Ok</a>
                                     @endif
                                 @endrole
-				@role('financeiro')
-                                    @if($historic->status == 'Aguardando confirmação')
-                                        <a href="{{ route('historic.darok', $historic->id) }}">Dar Ok</a>
-                                    @endif
-                                @endrole
+				
                             </td>
                         </tr>
                         @empty
