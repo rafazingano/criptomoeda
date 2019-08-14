@@ -70,7 +70,17 @@
                             </td>
 <td>{{ $historic->status }}</td>
                             <td>
-                                @role('admin', 'diretoria', 'financeiro')
+                                @role('admin')
+                                    @if($historic->status == 'Aguardando confirmação')
+                                        <a href="{{ route('historic.darok', $historic->id) }}">Dar Ok</a>
+                                    @endif
+                                @endrole
+				@role('diretoria')
+                                    @if($historic->status == 'Aguardando confirmação')
+                                        <a href="{{ route('historic.darok', $historic->id) }}">Dar Ok</a>
+                                    @endif
+                                @endrole
+				@role('financeiro')
                                     @if($historic->status == 'Aguardando confirmação')
                                         <a href="{{ route('historic.darok', $historic->id) }}">Dar Ok</a>
                                     @endif
