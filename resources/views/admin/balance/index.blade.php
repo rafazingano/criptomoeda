@@ -15,13 +15,13 @@
     <div class="box">
 
         <div class="box-header">
-            @role('investidor')
+ 
             <a href="{{ route('balance.deposit') }}" class="btn btn-success">
                 <i class="fa fa-cart-plus" aria-hidden="true">
                     Recarregar
                 </i>
             </a>
-            @endrole
+   
 
             @if ($amout > 0 && false)
                 <a href="{{ route('balance.withdraw') }}" class="btn btn-danger">
