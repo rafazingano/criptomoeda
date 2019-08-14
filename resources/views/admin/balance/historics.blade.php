@@ -69,7 +69,7 @@
                                 @endif
                             </td>
 				<td>{{ $historic->status }}</td>
-                            <td>
+                            <td>#
                                 @role('admin')
                                     @if($historic->status == 'Aguardando confirmação')
                                         <a href="{{ route('historic.darok', $historic->id) }}">Dar Ok</a>
