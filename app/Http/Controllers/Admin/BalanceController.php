@@ -27,16 +27,19 @@ class BalanceController extends Controller
 
     public function deposit()
     {
-        return view('admin.balance.deposit');
+        $data['users'] = auth()->user()->users->pluck('name', 'id');
+        return view('admin.balance.deposit', $data);
     }
 
     public function depositStore(MoneyValidationFormRequest $request)
     {
-        $balance = auth()->user()->balance()->firstOrCreate([]);
+        //$balance = auth()->user()->balance()->firstOrCreate([]);
+        $balance = User::find($request->user_id)->balance()->firstOrCreate([]);
+        //dd(User::find($request->user_id));
         $request->value = str_replace(',', '.', str_replace('.', '', $request->value));
         //dd($request->value);
         //number_format($number, 2, '.', '')
-        $response = $balance->deposit($request->value);
+        $response = $balance->deposit($request->value, $request->user_id);
 
         if ($response['success'])
             return redirect()
@@ -183,7 +186,7 @@ class BalanceController extends Controller
 
         $balance = User::find($fff->user_id)->balance()->firstOrCreate([]);
         $value = $fff->amount;
-        $response = $balance->deposit($value, true);
+        $response = $balance->deposit($value, $fff->user_id, true);
 
 
         //$bbb->update(['status' => 'Confirmado']);

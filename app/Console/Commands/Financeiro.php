@@ -12,7 +12,7 @@ class Financeiro extends Command
      *
      * @var string
      */
-    protected $signature = 'financeiro:change';
+    protected $signature = 'financeiro:now';
 
     /**
      * The console command description.

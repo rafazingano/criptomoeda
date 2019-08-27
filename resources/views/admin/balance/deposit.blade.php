@@ -27,6 +27,13 @@
 
                 {!! csrf_field() !!}
 
+
+                <div class="form-group">
+                    <strong>Usuario:</strong>
+                    {!! Form::select('user_id', $users, null, array('class' => 'form-control')) !!}
+                </div>
+
+
                 <div class="form-group">
                     <input type="text" class="form-control" name="value" placeholder="Valor Recarga">
                 </div>
